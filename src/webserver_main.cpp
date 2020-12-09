@@ -2,6 +2,7 @@
 
 #include <app.hpp>
 #include <boost/asio/io_context.hpp>
+#include <dbus_dump_offload.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
 #include <dump_offload.hpp>
@@ -28,7 +29,7 @@
 #include <nbd_proxy.hpp>
 #endif
 
-constexpr int defaultPort = 18080;
+constexpr int defaultPort = 433;
 
 inline void setupSocket(crow::App& app)
 {
@@ -128,6 +129,8 @@ int main(int /*argc*/, char** /*argv*/)
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
     crow::obmc_dump::requestRoutes(app);
 #endif
+
+crow::dbuscapture::requestRoutes(app);
 
     app.run();
     io->run();

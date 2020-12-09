@@ -268,6 +268,9 @@ if not sdbusplus.found()
 endif
 bmcweb_dependencies += sdbusplus
 
+thread_dependency = dependency('threads')
+bmcweb_dependencies += thread_dependency
+
 if get_option('rest').enabled()
   tinyxml = dependency('tinyxml2', required: false)
   if not tinyxml.found()

@@ -19,6 +19,7 @@
 #include "../lib/bios.hpp"
 #include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
+#include "../lib/dbus_capture.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
 #include "../lib/log_services.hpp"
@@ -208,6 +209,11 @@ class RedfishService
             std::make_unique<HypervisorInterfaceCollection>(app));
         nodes.emplace_back(std::make_unique<HypervisorInterface>(app));
         nodes.emplace_back(std::make_unique<HypervisorSystem>(app));
+
+        nodes.emplace_back(std::make_unique<DBusCaptureService>(app));
+        nodes.emplace_back(std::make_unique<DBusCaptureStart>(app));
+        nodes.emplace_back(std::make_unique<DBusCaptureStop>(app));
+        nodes.emplace_back(std::make_unique<DBusCaptureClear>(app));
 
         for (const auto& node : nodes)
         {
